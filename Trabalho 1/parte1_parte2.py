@@ -1,3 +1,10 @@
+"""
+    Trabalho 1 de Métodos Numéricos
+
+    @autor Leandro_Henrique
+
+"""
+
 # Importação da biblioteca Numpy para a manipulação de Arrays
 import numpy as np
 
@@ -43,7 +50,7 @@ def metodoDosRetangulos(indice):
 # e 2 colunas
 
 
-with open('Trabalho 1/dados.txt', 'r') as dados:
+with open('dados.txt', 'r') as dados:
     # Leitura do arquivo "dados.txt" e salvando ele como uma string
     matriz1 = dados.read()
 
@@ -95,7 +102,7 @@ if tipo == 1:
     # Criação do arquivo "derivada.txt" contendo os resultados obtidos a
     # partir da chamada das funções definidas
 
-    with open('Trabalho 1/derivada.txt', 'a+') as derivada:
+    with open('derivada.txt', 'a+') as derivada:
 
         # Laço para escrever o mesmo número de linhas que "dados.txt" contém
         for i in range(len(matrizFinal)):
@@ -116,7 +123,7 @@ elif tipo == 2:
     # Criação do arquivo "integral.txt" contendo os resultados obtidos a
     # partir da chamada da função definida
 
-    with open('Trabalho 1/integral.txt', 'a+') as integral:
+    with open('integral.txt', 'a+') as integral:
 
         # Laço para escrever o mesmo número de linhas que "dados.txt" contém
         for i in range(len(matrizFinal)):
