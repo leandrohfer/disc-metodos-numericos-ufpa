@@ -24,6 +24,21 @@ def diferencaAtrasada():
 
 #########################################################################
 
+# Definição da Função para o cálculo da Integral
+
+
+def metodoDosRetangulos(indice):
+
+    valor = 0
+    for i in range(1, indice):
+        valor += matrizFinal[i][1]
+
+    resultado = dx * valor
+    return round(resultado, 12)
+
+
+#########################################################################
+
 # Leitura do arquivo "dados.txt" para salvá-lo como uma matriz de N linhas
 # e 2 colunas
 
@@ -44,11 +59,11 @@ with open('Trabalho 1/dados.txt', 'r') as dados:
     aux = int((len(matriz2)) / 2)
 
     # Modificação do formato do array NP para uma matriz Nx2
-    matrizFinal1 = matriz2.reshape(aux, 2)
+    matrizArrayNP = matriz2.reshape(aux, 2)
 
     # Transformação de todos os valores desta matriz para o tipo Float
     # para podermos fazer cálculos com esses valores
-    matrizFinal = np.float_(matrizFinal1)
+    matrizFinal = np.float_(matrizArrayNP)
 
 #########################################################################
 
@@ -59,7 +74,7 @@ linha = '-' * 50
 
 print(linha)
 print('Matriz contida dentro do arquivo dados.txt: \n')
-print(matrizFinal1)
+print(matrizArrayNP)
 print('\n'+linha+'\n')
 
 dx = matrizFinal[1][0] - matrizFinal[0][0]
@@ -72,22 +87,48 @@ print('\n'+linha+'\n')
 
 #########################################################################
 
-# Criação do arquivo "derivada.txt" contendo os resultados obtidos a
-# partir da chamada das funções definidas
+print('Escolha o tipo de operação desejado.')
+tipo = int(input('Digite [1] para derivada ou [2] para integral: '))
 
-with open('Trabalho 1/derivada.txt', 'a+') as derivada:
+if tipo == 1:
 
-    # Laço para escrever o mesmo número de linhas que "dados.txt" contém
-    for i in range(len(matrizFinal)):
+    # Criação do arquivo "derivada.txt" contendo os resultados obtidos a
+    # partir da chamada das funções definidas
 
-        # Escrevendo os mesmos valores de X
-        derivada.write(str(matrizFinal[i][0])+' ')
+    with open('Trabalho 1/derivada.txt', 'a+') as derivada:
 
-        # Laços para a definição de que diferença usar dependendo da
-        # posição do índice
-        if i == 0:
-            derivada.write(str(diferencaAvancada()) + '\n')
-        elif i == ultimoIndice:
-            derivada.write(str(diferencaAtrasada()) + '\n')
-        else:
-            derivada.write(str(diferencaCentrada(i)) + '\n')
+        # Laço para escrever o mesmo número de linhas que "dados.txt" contém
+        for i in range(len(matrizFinal)):
+
+            # Escrevendo os mesmos valores de X
+            derivada.write(str(matrizFinal[i][0])+' ')
+
+            # Laços para a definição de que diferença usar dependendo da
+            # posição do índice
+            if i == 0:
+                derivada.write(str(diferencaAvancada()) + '\n')
+            elif i == ultimoIndice:
+                derivada.write(str(diferencaAtrasada()) + '\n')
+            else:
+                derivada.write(str(diferencaCentrada(i)) + '\n')
+elif tipo == 2:
+
+    # Criação do arquivo "integral.txt" contendo os resultados obtidos a
+    # partir da chamada da função definida
+
+    with open('Trabalho 1/integral.txt', 'a+') as integral:
+
+        # Laço para escrever o mesmo número de linhas que "dados.txt" contém
+        for i in range(len(matrizFinal)):
+
+            # Escrevendo os mesmos valores de X
+            integral.write(str(matrizFinal[i][0])+' ')
+
+            # Laços para a definição de que no primeiro parâmetro da integral
+            # o valor deve ser igual a zero e os demais devem ser calculados
+            if i == 0:
+                integral.write(str(0) + '\n')
+            else:
+                integral.write(str(metodoDosRetangulos(i)) + '\n')
+else:
+    print('Valor inserido inválido!')
